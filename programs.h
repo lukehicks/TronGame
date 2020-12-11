@@ -2,52 +2,39 @@
 #define PROGRAMS_H
 
 #include <SFML/Graphics.hpp>
-#include <bitset>
 #include "settings.h"
 
 using namespace sf;
 
-class Player
-{
-private:
-	Vector2f position;
+struct Program
+{ 
+	int x;
+	int y;
+	int dir;
 
-	RectangleShape playerShape;
+  	Color color;
+	  
+  	Program (Color c)
+  	{
+		x=rand() % WIDTH;
+		y=rand() % HEIGHT;
+		color=c;
+		dir=rand() % 4;
+	}
 
-	float playerSpeed = PLAYER_SPEED;
+	void tick()
+	{
+		if (dir==0) y+=1;
+		if (dir==1) x-=1;
+		if (dir==2) x+=1;
+		if (dir==3) y-=1;
 
-	int direction;
+		if (x>=WIDTH) x=0;  if (x<0) x=WIDTH-1;
+		if (y>=HEIGHT) y=0;  if (y<0) y=HEIGHT-1;
+	}
 
-	Color playerColor;
-
-	std::bitset <WIDTH> playerWall[HEIGHT];
-
-public:
-	Player(float startX, float startY, int startDirection, Color Color);
-
-	Vector2f getPosition();
-
-	void setPosition(int x, int y);
-
-	RectangleShape getShape();
-
-	void changeDirection(int a);
-
-	int getDirection();
-
-	Color getColor();
-
-	void setWall(int x1, int y1, int x2, int y2);
-
-	void setSingleWall(int x, int y);
-
-	bool isCrashed(int x1, int y1, int x2, int y2);
-
-	void wallReset();
-
-	Vertex move();
-
-	void update();
+	Vector3f getColor()
+	{return Vector3f(color.r,color.g,color.b);}
 };
 
 #endif
