@@ -63,7 +63,7 @@ int main()
         if (Keyboard::isKeyPressed(Keyboard::S)); 
 		else if (p2.dir !=3 ) p2.dir = 0;
 
-        for(int i=0;i< SPEED;i++)
+        for(int i = 0; i < SPEED; i++)
         {
             p1.tick(); 
 			p2.tick();
